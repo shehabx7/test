@@ -36,7 +36,7 @@ def guess(word):
         input_flag = 1 # flag for the inner loop
         
         
-        if counter > 7: # exit if the user did 7 tries
+        if counter >= 7: # exit if the user did 7 tries
             print("Game Over!!")
             break
         
