@@ -25,7 +25,7 @@ def guess(word):
     main_flag = 1 # flag for the outer while to be able to exit the loop at any point
     current_guess = ["-" for x in range(len(word))] # holds the current guess starts with "-" for every char in the name
     word = [x for x in word] # stores right name that is being guessed
-    counter = 0 # counter for the user tries
+    counter = 7 # counter for the user tries
     
     # for c in word:
     #     current_guess.append("-")
@@ -36,13 +36,19 @@ def guess(word):
         input_flag = 1 # flag for the inner loop
         
         
-        if counter >= 7: # exit if the user did 7 tries
+        if counter == 0: # exit if the user did 7 tries
             print("Game Over!!")
+            main_flag = 0
             break
         
         while input_flag == 1: # inner loop count and input user gues
+            if counter == 0: # exit if the user did 7 tries
+                print("Game Over!!")
+                main_flag = 0
+                input_flag = 0
+                break
             char = input("guess!! ")
-            counter += 1 # count a try
+            counter -= 1 # count a try
             
             if char == "0": # change the main loop flag if user input "0"
               main_flag = 0
@@ -54,7 +60,7 @@ def guess(word):
                 break
             else:
                 print("Not valid guess!")
-                print(f"{7 - counter} trails left")
+                print(f"{counter} trails left")
                 print("_" * 20)
                 print()
             
@@ -87,7 +93,7 @@ def guess(word):
             print("".join(current_guess))
             
         # print statues
-        print(f"{7 - counter} trails left")
+        print(f"{counter} trails left")
         print("_" * 20)
         print()
     
@@ -97,7 +103,10 @@ def input_guess_list():
     names_flag = 1 # flag for the loop
     while names_flag == 1:
         # input name list wih space and convert it to list
-        names = input("input your names list a space between names: ").lower()
+        names = input("input your names list a space between names('0' to exit): ").lower()
+        if names == "0":
+            names_flag = 0
+            break
         names = names.split(" ")
         
         #clean and check the names every char is char
